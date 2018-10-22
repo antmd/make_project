@@ -1,0 +1,21 @@
+project({{project.name}})
+cmake_minimum_required(VERSION 2.8.12)
+
+add_definitions("-std=c++14")
+
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+
+conan_basic_setup()
+
+add_executable({{project.name}} main.cpp)
+target_link_libraries({{project.name}} ${CONAN_LIBS})
+
+set_property(TARGET {{project.name}} 
+    PROPERTY 
+        CXX_STANDARD 14
+)
+
+install(TARGETS {{project.name}}
+    RUNTIME DESTINATION 
+        ${CMAKE_CURRENT_SOURCE_DIR}
+)
