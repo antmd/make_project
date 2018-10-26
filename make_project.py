@@ -10,7 +10,8 @@ from os import path
 import jinja2
 from jinja2 import Environment, FileSystemLoader, StrictUndefined
 
-script_dir = os.path.dirname(__file__)
+script_dir = os.path.realpath(os.path.dirname(os.path.realpath(__file__)))
+print("script_dir = {}".format(script_dir))
 languages_dir = os.path.join(script_dir, 'languages')
 
 
