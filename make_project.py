@@ -1,4 +1,5 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
+from __future__ import print_function
 import shutil
 
 import begin
@@ -23,6 +24,19 @@ class Project(object):
         self.name = name
         self.language = language
 
+def mkdir(name, exist_ok=False):
+    try:
+        os.makedirs(name)
+    except Exception as e:
+        if not exist_ok:
+            raise e
+
+def copyfile(src, dst, follow_symlinks=False):
+    if not follow_symlinks and os.path.islink(src):
+        linkto = os.readlink(src)
+        os.symlink(linkto, dst)
+    else:
+        shutil.copy(src,dst)
 
 @begin.start
 def main(name, language, root=None):
@@ -35,9 +49,10 @@ def main(name, language, root=None):
         sys.exit(1)
 
     if root is None:
-        os.makedirs(name, exist_ok=True)
+        mkdir(name, exist_ok=True)
         root = name
 
+    language_dir = os.path.realpath(language_dir)
     root = os.path.realpath(root)
 
     project = Project(name, language)
@@ -57,10 +72,10 @@ def main(name, language, root=None):
         os.chdir(ndir)
 
         for d in dirs:
-            os.makedirs(d, exist_ok=True)
+            mkdir(d, exist_ok=True)
 
         for file in files:
-            src = os.path.join(base, file)
+            src = os.path.join(language_dir, rdir, file)
             se = os.path.splitext(file)
             if se[1] == '.jinja':
                 dest = os.path.join(os.getcwd(), se[0])
@@ -85,5 +100,5 @@ def main(name, language, root=None):
                 dest = os.path.join(os.getcwd(), file)
                 if os.path.lexists(dest):
                     os.unlink(dest)
-                shutil.copyfile(src, dest, follow_symlinks=False)
                 print("Copying {} -> {}".format(src, dest))
+                copyfile(src, dest, follow_symlinks=False)
