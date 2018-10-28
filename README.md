@@ -7,6 +7,7 @@ e.g.
 make_project.py MyExperiment cpp
 cd MyExperiment/build
 conan install ..
+cmake -DCMAKE_BUILD_TYPE=Debug ..
 make
 cd ..
 vim main.cpp
