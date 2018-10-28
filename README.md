@@ -1,6 +1,18 @@
 # make_project
 Create simple projects, easily. For C++, etc.
 
+e.g.
+
+```
+make_project.py MyExperiment cpp
+cd MyExperiment/build
+conan install ..
+make
+cd ..
+vim main.cpp
+... develop stuff ...
+```
+
 Sometimes, you want to get started on a small project or an experiment without spending time creating a build environment. You still want to take advantage of the tools available, but those tools need configuration. Maybe you have a template project you can duplicate to get started; then all you have to do is change some strings and you can get started.
 
 make_project contains example templates (for C++ only, at the moment), and simplifies the duplication and string substitution so you can get started on your project.
