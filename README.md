@@ -5,11 +5,7 @@ e.g.
 
 ```
 make_project.py MyExperiment cpp
-cd MyExperiment/build
-conan install ..
-cmake -DCMAKE_BUILD_TYPE=Debug ..
-make
-cd ..
+cd MyExperiment
 vim main.cpp
 ... develop stuff ...
 ```
