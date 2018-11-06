@@ -113,4 +113,8 @@ def main(name, language, project_root=None):
 
         if setup_file:
             print("Running {}".format(setup_file))
-            subprocess.call(setup_file, env={'PATH':os.getenv('PATH'), 'PROJECT_DIR': project_root}, cwd=project_root)
+            environ = {'PATH':os.getenv('PATH')
+                       , 'HOME': os.getenv('HOME')
+                       , 'PROJECT_DIR': project_root
+                       }
+            subprocess.call(setup_file, env=environ, cwd=project_root)
